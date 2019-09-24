@@ -95,10 +95,9 @@ module.exports = function(
 
   // Setup the script rules
   appPackage.scripts = {
-    start: 'react-scripts start',
-    build: 'react-scripts build',
-    test: 'react-scripts test',
-    eject: 'react-scripts eject',
+    start: "react-app-rewired start",
+    build: "react-app-rewired build",
+    test: "react-app-rewired test --env=jsdom --coverage -u"
   };
 
   // Setup the eslint config
@@ -164,22 +163,35 @@ module.exports = function(
     command = 'npm';
     args = ['install', '--save', verbose && '--verbose'].filter(e => e);
   }
-  args.push('react', 'react-dom');
+ 
+  const createDependencyList = deps => {
+    return Object.keys(deps).map(key => {
+      return `${key}@${deps[key]}`;
+    });
+  };
 
-  // Install additional template dependencies, if present
-  const templateDependenciesPath = path.join(
-    appPath,
-    '.template.dependencies.json'
-  );
-  if (fs.existsSync(templateDependenciesPath)) {
-    const templateDependencies = require(templateDependenciesPath).dependencies;
-    args = args.concat(
-      Object.keys(templateDependencies).map(key => {
-        return `${key}@${templateDependencies[key]}`;
-      })
+  const installModule = (cmd, args) => {
+    console.log();
+    console.log(
+      `=======  Installing ${cmd} module with parameters: ${args} =========`
     );
-    fs.unlinkSync(templateDependenciesPath);
-  }
+    console.log();
+    const installSubs = spawn.sync(cmd, args, { stdio: 'inherit' });
+    if (installSubs.status !== 0) {
+      console.error(`\`${cmd} ${args.join(' ')}\` failed`);
+      return;
+    }
+  };
+
+  const dependencies = createDependencyList(
+    require(`${ownPath}/scripts/.template.dependencies.json`).dependencies
+  );
+  const devDependencies = createDependencyList(
+    require(`${ownPath}/scripts/.template.dependencies.json`).devDependencies
+  );
+
+  installModule(command, args.concat(dependencies));
+  installModule(command, args.concat('-D').concat(devDependencies));
 
   // Install react and react-dom for backward compatibility with old CRA cli
   // which doesn't install react and react-dom along with react-scripts

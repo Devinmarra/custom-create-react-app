@@ -1,7 +1,7 @@
 import * as React from "react";
-import * as Top from "src/modules/top";
-import { ErrorBoundary } from "src/modules/errorBoundary";
-import { About } from "src/modules/content";
+import * as Top from "@src/modules/top";
+import { ErrorBoundary } from "@src/modules/errorBoundary";
+import { About } from "@src/modules/content";
 
 import "./App.scss";
 

@@ -2,7 +2,7 @@ import { expectSaga, testSaga } from "redux-saga-test-plan";
 import { startup } from "../sagas";
 import * as content from "src/modules/content";
 import { actions } from "../actions";
-import { getInitModules } from "src/modules/content";
+import { getInitModules } from "@src/modules/content";
 import { call } from "redux-saga/effects";
 
 describe("Startup", () => {

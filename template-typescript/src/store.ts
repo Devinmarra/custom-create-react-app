@@ -4,9 +4,9 @@ import { composeWithDevTools, EnhancerOptions } from "redux-devtools-extension";
 import { combineReducers } from "redux";
 
 import { all } from "redux-saga/effects";
-import * as app from "src/app";
-import * as content from "src/modules/content";
-import * as top from "src/modules/top";
+import * as app from "@src/app";
+import * as content from "@src/modules/content";
+import * as top from "@src/modules/top";
 
 const rootReducer = combineReducers({
     [content.constants.NAME]: content.reducer,

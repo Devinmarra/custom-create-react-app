@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { State as RootState } from "src/modules/content/parent";
-import { getContentState } from "src/modules/content/selectors";
+import { State as RootState } from "@src/modules/content/parent";
+import { getContentState } from "@src/modules/content/selectors";
 import { NAME } from "../constants";
 
 import "./About.scss";

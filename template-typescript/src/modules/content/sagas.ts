@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { getType, ActionType } from "typesafe-actions";
 import { actions } from "./actions";
-import { getAppData } from "src/app/api";
+import { getAppData } from "@src/app/api";
 import { ModuleState } from "./reducer";
 
 export function* getData(action: ActionType<typeof actions.getData>) {

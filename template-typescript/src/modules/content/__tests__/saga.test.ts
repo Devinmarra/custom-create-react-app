@@ -1,7 +1,7 @@
 import { testSaga } from "redux-saga-test-plan";
 import { getData } from "../sagas";
 import { actions } from "../actions";
-import { getAppData } from "src/app/api";
+import { getAppData } from "@src/app/api";
 import { ModuleState } from "../reducer";
 
 describe("getData", () => {
