@@ -1,0 +1,48 @@
+//cool mixin that i may not need
+@mixin aspectRatio($ar-width, $ar-height, $unit:px, $baseWidth:100) {
+    $aspectRatio : ($ar-width/$ar-height);
+    width: $baseWidth+$unit;
+    height: ($baseWidth/$aspectRatio)+$unit;
+}
+
+@mixin width($mWidth, $tWidth: $mWidth, $dWidth: $tWidth, $eWidth: $dWidth) {
+    $widths: (0 : $mWidth);
+    @if ($mWidth == $tWidth) {
+        @if ($tWidth == $dWidth) {
+            @if ($dWidth != $eWidth) {
+                $widths: (
+                    $mobile-desktop : $mWidth,
+                    $ext-desktop : $eWidth
+                );
+            }
+        } @else {
+            $widths: ($mobile-tablet : $mWidth);
+            @if ($dWidth == $eWidth) {
+                $widths: map-merge($widths,  ($desktop : $dWidth));
+            } @else {
+                $widths: map-merge($widths,  ($desktop-only : $dWidth, $ext-desktop : $eWidth));
+            }
+        }
+    } @else {
+        $widths: ($mobile-only : $mWidth);
+        @if ($tWidth == $dWidth) {
+            @if ($dWidth == $eWidth) {
+                $widths: map-merge($widths,  ($tablet : $tWidth));
+            } @else {
+                $widths: map-merge($widths,  ($tablet-desktop : $tWidth, $ext-desktop: $eWidth));
+            }
+        } @else {
+            @if ($dWidth == $eWidth) {
+                $widths: map-merge($widths,  ($tablet-desktop : $tWidth, $desktop: $dWidth));
+            } @else {
+                $widths: map-merge($widths,  ($tablet-only : $tWidth, $desktop-only : $dWidth, $ext-desktop: $eWidth));
+            }
+        }
+    }
+    //box-sizing: border-box;
+    @each $bp, $widgetWidth in $widths {
+        @include breakpoint($bp) {
+            width: $widgetWidth;
+        }
+    }
+}

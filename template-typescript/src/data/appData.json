@@ -1,0 +1,8 @@
+{
+    "About": {
+        "title": "About",
+        "content": [
+            "This is a custom create-react-app template using an implementation of redux and typescript. This template is highly opinionated, and this boilerplate code will receive regular updates on an as-needed basis."
+        ]
+    }
+}
