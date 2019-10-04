@@ -86,7 +86,6 @@ module.exports = function(
     require.resolve(path.join(__dirname, '..', 'package.json'))
   );
   const appPackage = require(path.join(appPath, 'package.json'));
-  const useYarn = fs.existsSync(path.join(appPath, 'yarn.lock'));
 
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
@@ -124,7 +123,7 @@ module.exports = function(
   // Copy the files for the user
   const templatePath = template
     ? path.resolve(originalDirectory, template)
-    : path.join(ownPath, useTypeScript ? 'template-typescript' : 'template');
+    : path.join(ownPath, 'template');
   if (fs.existsSync(templatePath)) {
     fs.copySync(templatePath, appPath);
   } else {
@@ -153,16 +152,8 @@ module.exports = function(
     }
   }
 
-  let command;
-  let args;
-
-  if (useYarn) {
-    command = 'yarnpkg';
-    args = ['add'];
-  } else {
-    command = 'npm';
-    args = ['install', '--save', verbose && '--verbose'].filter(e => e);
-  }
+  const command = 'npm';
+  const args = ['install', '--save', verbose && '--verbose'].filter(e => e);
  
   const createDependencyList = deps => {
     return Object.keys(deps).map(key => {
@@ -207,9 +198,7 @@ module.exports = function(
     }
   }
 
-  if (useTypeScript) {
-    verifyTypeScriptSetup();
-  }
+  verifyTypeScriptSetup();
 
   if (tryGitInit(appPath)) {
     console.log();
@@ -227,7 +216,7 @@ module.exports = function(
   }
 
   // Change displayed command to yarn instead of yarnpkg
-  const displayedCommand = useYarn ? 'yarn' : 'npm';
+  const displayedCommand = 'npm';
 
   console.log();
   console.log(`Success! Created ${appName} at ${appPath}`);
@@ -237,7 +226,7 @@ module.exports = function(
   console.log('    Starts the development server.');
   console.log();
   console.log(
-    chalk.cyan(`  ${displayedCommand} ${useYarn ? '' : 'run '}build`)
+    chalk.cyan(`  ${displayedCommand} run build`)
   );
   console.log('    Bundles the app into static files for production.');
   console.log();
@@ -245,7 +234,7 @@ module.exports = function(
   console.log('    Starts the test runner.');
   console.log();
   console.log(
-    chalk.cyan(`  ${displayedCommand} ${useYarn ? '' : 'run '}eject`)
+    chalk.cyan(`  ${displayedCommand} run eject`)
   );
   console.log(
     '    Removes this tool and copies build dependencies, configuration files'
