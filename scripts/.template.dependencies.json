@@ -31,6 +31,7 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-to-json": "^3.3.5",
+    "eslint-loader": "2.2.1",
     "jest-mock-axios": "^2.4.0",
     "lodash": "^4.17.11",
     "node-sass": "^4.12.0",
