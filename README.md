@@ -2,7 +2,7 @@
 This is a custom package replacing react-scripts to include redux and some boilerplate code. The template is react with typescript and redux, including some basic file structures and skeleton functions with which to build on, with the intent on saving time and not having to go back to old projects to reference a pattern.
 
 To install, add command argument as follows
-create-react-app app-name --typescript --scripts-version=@devinmarra/react-scripts
+create-react-app app-name --scripts-version=@devinmarra/react-scripts
 
 *Note* For now, You will need to host this on your own NPM host such as verdaccio, and then configure your registry to that path
 npm set registry http://localhost:4873
