@@ -90,8 +90,6 @@ module.exports = function(
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
 
-  const useTypeScript = appPackage.dependencies['typescript'] != null;
-
   // Setup the script rules
   appPackage.scripts = {
     start: "react-app-rewired start",
